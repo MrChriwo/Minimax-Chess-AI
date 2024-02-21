@@ -1,5 +1,6 @@
 import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
+import { Button } from '@material-ui/core'
 
 function App(): JSX.Element {
   const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
@@ -26,6 +27,11 @@ function App(): JSX.Element {
             Send IPC
           </a>
         </div>
+
+        <Button variant="contained" color="primary">
+          Hello World
+        </Button>
+
       </div>
       <Versions></Versions>
     </>
