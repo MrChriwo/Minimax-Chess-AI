@@ -1,6 +1,11 @@
 # minimax-chess-ai
 
-An Electron application with React and TypeScript
+This project revolves around creating a chess AI game using an Electron application with React and TypeScript. The core of the game involves implementing the minimax algorithm with alpha-beta pruning for strategic and challenging gameplay.
+
+Currently the heuristic is quite simple by evaluating the pieces. 
+
+![image](https://github.com/MrChriwo/Minimax-Chess-AI/assets/96289753/259aa51f-c63d-49d4-a5a6-4719fd5c6dc1)
+
 
 ## Recommended IDE Setup
 
