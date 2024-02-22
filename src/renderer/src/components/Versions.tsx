@@ -5,9 +5,9 @@ function Versions(): JSX.Element {
 
   return (
     <ul className="versions">
-      <li className="electron-version">Electron v{versions.electron}</li>
-      <li className="chrome-version">Chromium v{versions.chrome}</li>
-      <li className="node-version">Node v{versions.node}</li>
+      <li className="ChessAI">ChessAI v{1.0}</li>
+      <li className="developer">state dev</li>
+      <li className="GitHub">GitHub MrChriwo</li>
     </ul>
   )
 }

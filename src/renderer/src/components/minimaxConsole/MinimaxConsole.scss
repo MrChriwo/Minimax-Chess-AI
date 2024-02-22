@@ -1,0 +1,15 @@
+.console-wrapper { 
+    min-height: 85%;
+    background-color: black;   
+    margin-right: 2em; 
+    margin-bottom: 3%;
+    margin-top: 3%;
+    .minimax-console { 
+        font-size: 1.2em;
+        min-height: 85%;
+        max-height: 25em;
+        overflow-y: auto;
+    }
+
+
+}
