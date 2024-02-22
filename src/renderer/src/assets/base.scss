@@ -1,3 +1,16 @@
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#root {
+  flex-direction: column;
+  margin-bottom: 80px;
+}
+
 :root {
   --ev-c-white: #ffffff;
   --ev-c-white-soft: #f8f8f8;
@@ -44,10 +57,15 @@ ul {
 }
 
 body {
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background-image: url('./wavy-lines.svg');
+  background-size: cover;
+  user-select: none;
   color: var(--color-text);
   background: var(--color-background);
-  line-height: 1.6;
   font-family:
     Inter,
     -apple-system,
