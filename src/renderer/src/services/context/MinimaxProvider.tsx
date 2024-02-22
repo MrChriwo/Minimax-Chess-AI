@@ -2,8 +2,6 @@ import { createContext, ReactNode, useContext, useState, useEffect } from "react
 import { Chess } from "chess.js";
 import { validateMove } from "@renderer/services/context/BoardHandler";
 import { Minimax } from "../AI/Minimax";
-import { is } from "@electron-toolkit/utils";
-
 
 interface MinimaxContextType {
     game: Chess;

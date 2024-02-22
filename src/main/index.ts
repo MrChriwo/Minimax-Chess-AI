@@ -8,6 +8,7 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 750,
+    icon: icon,
     minimizable: false,
     resizable: false,
     show: false,
@@ -43,7 +44,7 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
+  electronApp.setAppUserModelId('chess.ai')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.

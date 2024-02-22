@@ -1,4 +1,4 @@
-appId: com.electron.app
+appId: minimax.chess.ai
 productName: minimax-chess-ai
 directories:
   buildResources: build
@@ -16,6 +16,9 @@ win:
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
+  allowToChangeInstallationDirectory: true
+  oneClick: false
+  perMachine: false
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
 mac:

@@ -1,6 +1,5 @@
 import { Chess } from "chess.js";
 import { getAllPossibleMoves } from "../context/BoardHandler";
-import { log } from "console";
 
 const pieceValues = {
   p: 1,  // pawn

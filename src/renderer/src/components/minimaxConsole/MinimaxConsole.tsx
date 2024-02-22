@@ -1,5 +1,5 @@
 import { Button, Grid } from "@material-ui/core";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import "./MinimaxConsole.scss";
 import { useMinimax } from "@renderer/services/context/MinimaxProvider";
 
