@@ -1,6 +1,8 @@
 import { createContext, ReactNode, useContext, useState, useEffect } from "react";
 import { Chess } from "chess.js";
 import { validateMove } from "@renderer/services/context/BoardHandler";
+import { Minimax } from "../AI/Minimax";
+import { is } from "@electron-toolkit/utils";
 
 
 interface MinimaxContextType {
@@ -31,6 +33,8 @@ const useMinimaxEventEmitter = () => {
 
   export const MinimaxProvider: React.FC<MinimaxProviderProps> = ({ children }) => {
     const [game, setGame] = useState<Chess>(new Chess());
+    const [isUserTurn, setIsUserTurn] = useState<boolean>(true);
+
 
 
     const minimaxEventEmitter: MinimaxEventEmitter = {
@@ -41,20 +45,40 @@ const useMinimaxEventEmitter = () => {
         window.dispatchEvent(new CustomEvent(eventName, { detail: payload }));
     },
     };
-
     const updateGame = (sourceSquare: string, targetSquare: string): boolean => {
       const isValidMove = validateMove(game, sourceSquare, targetSquare);
-
+    
       if (isValidMove) {
-          setGame(new Chess(game.fen()));
+        setGame((prevGame) => new Chess(prevGame.fen()));
+        setIsUserTurn((prevIsUserTurn) => !prevIsUserTurn);
+        console.log("User turn: ", isUserTurn);
       } else {
-          console.log('Invalid move!');
+        console.log('Invalid move!');
       }
-      return isValidMove
-    }
+    
+      return isValidMove;
+    };
+    
+    const makeAIMove = () => {
+      const {move, score} = Minimax(3, game, -Infinity, Infinity, false);
+
+      console.log("Minimax results: ", );
+    
+        setGame((prevGame) => {
+          const newGame = new Chess(prevGame.fen());
+          newGame.move(move);
+          return newGame;
+        });
+        setIsUserTurn((prevIsUserTurn) => !prevIsUserTurn);
+      }
+    
 
     useEffect(() => {
       minimaxEventEmitter.emit("gameUpdated", game);
+      if (!isUserTurn) {
+        setTimeout(() => {}, 2000);
+        makeAIMove();
+      }
   }, [game]);
   
     return (
@@ -72,6 +96,8 @@ const useMinimaxEventEmitter = () => {
     if (!context) throw new Error("Missing profile context");
     const { game } = context;
     const [gameState, setGameState] = useState<Chess>(game);
+
+
 
     const minimaxEventEmitter = useMinimaxEventEmitter();
 

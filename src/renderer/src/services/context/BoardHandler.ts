@@ -22,5 +22,11 @@ export const updateGame = (setGame: React.Dispatch<React.SetStateAction<Chess>>,
 };
 
 export const getAllPossibleMoves = (game: Chess): string[] => {
-    return game.moves();
-};
+
+    // return a list of all possible moves for black
+    return game.moves({verbose: true}).map((move) => {
+        move.color === 'b' ? move : null;
+        return  move.san;
+    }
+    );
+}   
