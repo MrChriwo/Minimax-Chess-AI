@@ -11,19 +11,8 @@ export const validateMove = (game: Chess, sourceSquare: string, targetSquare: st
     return move !== null;
 };
 
-export const updateGame = (setGame: React.Dispatch<React.SetStateAction<Chess>>, game: Chess, sourceSquare: string, targetSquare: string) => {
-    const isValidMove = validateMove(game, sourceSquare, targetSquare);
-
-    if (isValidMove) {
-        setGame(new Chess(game.fen()));
-    } else {
-        console.log('Invalid move!');
-    }
-};
-
 export const getAllPossibleMoves = (game: Chess): string[] => {
 
-    // return a list of all possible moves for black
     return game.moves({verbose: true}).map((move) => {
         move.color === 'b' ? move : null;
         return  move.san;

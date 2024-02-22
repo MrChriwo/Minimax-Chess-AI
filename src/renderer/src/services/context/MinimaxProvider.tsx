@@ -8,6 +8,8 @@ import { is } from "@electron-toolkit/utils";
 interface MinimaxContextType {
     game: Chess;
     updateGame: (sourceSquare: string, targetSquare: string) => boolean;
+    minimaxLog: string | undefined;
+    clearLogs: () => void;
   }
 
 interface MinimaxProviderProps {
@@ -34,8 +36,18 @@ const useMinimaxEventEmitter = () => {
   export const MinimaxProvider: React.FC<MinimaxProviderProps> = ({ children }) => {
     const [game, setGame] = useState<Chess>(new Chess());
     const [isUserTurn, setIsUserTurn] = useState<boolean>(true);
+    const [minimaxLog, setMinimaxLog] = useState<string>("");
 
 
+    const handleMinimaxLog = (msg: string) => {
+      setMinimaxLog((prevLog) => {
+        return `${prevLog}\n${msg}`;
+      });
+    }
+
+    const clearLogs = () => {
+      setMinimaxLog("");
+    }
 
     const minimaxEventEmitter: MinimaxEventEmitter = {
       subscribe: (eventName, callback) => {
@@ -45,13 +57,13 @@ const useMinimaxEventEmitter = () => {
         window.dispatchEvent(new CustomEvent(eventName, { detail: payload }));
     },
     };
+
     const updateGame = (sourceSquare: string, targetSquare: string): boolean => {
       const isValidMove = validateMove(game, sourceSquare, targetSquare);
     
       if (isValidMove) {
         setGame((prevGame) => new Chess(prevGame.fen()));
         setIsUserTurn((prevIsUserTurn) => !prevIsUserTurn);
-        console.log("User turn: ", isUserTurn);
       } else {
         console.log('Invalid move!');
       }
@@ -60,9 +72,7 @@ const useMinimaxEventEmitter = () => {
     };
     
     const makeAIMove = () => {
-      const {move, score} = Minimax(3, game, -Infinity, Infinity, false);
-
-      console.log("Minimax results: ", );
+      const { move } = Minimax(3, game, -Infinity, Infinity, false, handleMinimaxLog);
     
         setGame((prevGame) => {
           const newGame = new Chess(prevGame.fen());
@@ -70,7 +80,7 @@ const useMinimaxEventEmitter = () => {
           return newGame;
         });
         setIsUserTurn((prevIsUserTurn) => !prevIsUserTurn);
-      }
+      } 
     
 
     useEffect(() => {
@@ -82,7 +92,7 @@ const useMinimaxEventEmitter = () => {
   }, [game]);
   
     return (
-      <MinimaxContext.Provider value={{ game, updateGame }}>
+      <MinimaxContext.Provider value={{ game, updateGame, minimaxLog, clearLogs }}>
         <MinimaxEventEmitterContext.Provider value={minimaxEventEmitter}>
           {children}
         </MinimaxEventEmitterContext.Provider>

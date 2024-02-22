@@ -1,34 +1,30 @@
 import { Button, Grid } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./MinimaxConsole.scss";
+import { useMinimax } from "@renderer/services/context/MinimaxProvider";
 
 export const MinimaxConsole = () => {
-  const [consoleText, setConsoleText] = useState("");
+  const {minimaxLog, clearLogs } = useMinimax().context;
+  const consoleRef = useRef<HTMLDivElement | null>(null);
 
 
-  const log = (text: string) => {
-    setConsoleText((prev) => prev + text + "\n");
-  };
-
-  const clear = () => {
-    setConsoleText("");
-  }
-
+  useEffect(() => {
+    if (consoleRef.current) {
+      consoleRef.current.scrollTop = consoleRef.current.scrollHeight;
+    }
+  }, [minimaxLog]);
 
   return (
     <>
-            <h2>Minimax Console</h2>
+    <h2>Minimax Console</h2>
     <div className="console-wrapper">
-        <div className="minimax-console">
-        <pre>{consoleText}</pre>
+        <div className="minimax-console" ref={consoleRef}>
+        <pre>{minimaxLog}</pre>
         </div>
     </div>
             <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={3}>
-            <Button variant="contained" onClick={() => log("World")}>Click me</Button>
-            </Grid>
-            <Grid item xs={3}>
-            <Button variant="contained" onClick={clear}>Clear</Button>
+            <Grid item xs={12}>
+            <Button variant="contained" onClick={clearLogs}>Clear console</Button>
             </Grid>
             </Grid>
     </>
