@@ -11,7 +11,7 @@ export const GameBoard: React.FC = () => {
 
     return (
         <>
-        <Grid>
+        <Grid style={{marginBottom: "8px"}}>
             <Chessboard
                 position={gameState.fen()}
                 onPieceDrop={(sourceSquare, targetSquare) => updateGame(sourceSquare, targetSquare)}
