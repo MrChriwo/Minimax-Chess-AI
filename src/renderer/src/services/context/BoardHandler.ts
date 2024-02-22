@@ -11,7 +11,7 @@ export const validateMove = (game: Chess, sourceSquare: string, targetSquare: st
     return move !== null;
 };
 
-export const updateGame = (setGame: React.Dispatch<React.SetStateAction<Chess>>, game: Chess, sourceSquare: string, targetSquare: string): boolean => {
+export const updateGame = (setGame: React.Dispatch<React.SetStateAction<Chess>>, game: Chess, sourceSquare: string, targetSquare: string) => {
     const isValidMove = validateMove(game, sourceSquare, targetSquare);
 
     if (isValidMove) {
@@ -19,8 +19,6 @@ export const updateGame = (setGame: React.Dispatch<React.SetStateAction<Chess>>,
     } else {
         console.log('Invalid move!');
     }
-
-    return isValidMove;
 };
 
 export const getAllPossibleMoves = (game: Chess): string[] => {

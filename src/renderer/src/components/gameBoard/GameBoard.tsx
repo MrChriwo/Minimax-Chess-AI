@@ -1,24 +1,18 @@
-// GameBoard.tsx
 
-import React, { useState, useEffect } from 'react';
-import {updateGame, getAllPossibleMoves } from './BoardHandler';
+import React from 'react';
+import { useMinimax } from '@renderer/services/context/MinimaxProvider';
 import { Chessboard } from 'react-chessboard';
-import { Chess } from 'chess.js';
 import { Grid } from '@material-ui/core';
 
 export const GameBoard: React.FC = () => {
-    const [game, setGame] = useState<Chess>(new Chess());
-
-    useEffect(() => {
-        const possibleMoves = getAllPossibleMoves(game);
-        console.log(possibleMoves);
-    }, [game]);
+    const { gameState } = useMinimax();
+    const {updateGame} = useMinimax().context;
 
     return (
         <Grid>
             <Chessboard
-                position={game.fen()}
-                onPieceDrop={(sourceSquare, targetSquare) => updateGame(setGame, game, sourceSquare, targetSquare)}
+                position={gameState.fen()}
+                onPieceDrop={(sourceSquare, targetSquare) => updateGame(sourceSquare, targetSquare)}
                 boardWidth={600}
             />
         </Grid>
