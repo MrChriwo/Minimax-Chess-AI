@@ -18,7 +18,9 @@ export const GameBoard: React.FC = () => {
                 boardWidth={600}
             />
         </Grid>
+        <div>
         <Button variant="contained" onClick={resetGame}>Reset game</Button>
+        </div>
         </>
     );
 };

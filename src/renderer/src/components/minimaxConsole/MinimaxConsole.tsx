@@ -23,7 +23,7 @@ export const MinimaxConsole = () => {
         </div>
     </div>
             <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={12}>
+            <Grid item>
             <Button variant="contained" onClick={clearLogs}>Clear console</Button>
             </Grid>
             </Grid>
