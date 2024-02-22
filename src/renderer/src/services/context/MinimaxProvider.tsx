@@ -2,12 +2,14 @@ import { createContext, ReactNode, useContext, useState, useEffect } from "react
 import { Chess } from "chess.js";
 import { validateMove } from "@renderer/services/context/BoardHandler";
 import { Minimax } from "../AI/Minimax";
+import { clear } from "console";
 
 interface MinimaxContextType {
     game: Chess;
     updateGame: (sourceSquare: string, targetSquare: string) => boolean;
     minimaxLog: string | undefined;
     clearLogs: () => void;
+    resetGame: () => void;
   }
 
 interface MinimaxProviderProps {
@@ -80,6 +82,11 @@ const useMinimaxEventEmitter = () => {
         setIsUserTurn((prevIsUserTurn) => !prevIsUserTurn);
       } 
     
+      const resetGame = () => {
+        setGame( new Chess());
+        setIsUserTurn(true);
+        clearLogs(); 
+      }
 
     useEffect(() => {
       minimaxEventEmitter.emit("gameUpdated", game);
@@ -90,7 +97,7 @@ const useMinimaxEventEmitter = () => {
   }, [game]);
   
     return (
-      <MinimaxContext.Provider value={{ game, updateGame, minimaxLog, clearLogs }}>
+      <MinimaxContext.Provider value={{ game, updateGame, minimaxLog, clearLogs, resetGame }}>
         <MinimaxEventEmitterContext.Provider value={minimaxEventEmitter}>
           {children}
         </MinimaxEventEmitterContext.Provider>
